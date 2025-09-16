@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compliment.exe</title>
+  <style>
+    body {
+      background: #000;
+      color: #00ff66;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      cursor: url(cursor1v3.png) 0 0, auto; /*custom cursor image*/
+    }
+    .terminal {
+      background: #111;
+      border: 2px solid #00ff66;
+      padding: 20px;
+      width: 500px;
+      max-width: 90%;
+      box-shadow: 0 0 20px #00ff66;
+      animation: flicker 1.5s infinite; /*lets see what that is*/
+    }
+    #output {
+      white-space: pre-wrap;
+      min-height: 80px;
+      margin-bottom: 20px;
+    }
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      background: #00ff66;
+      animation: blink 1s steps(1) infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; } /*original: 50% { background: transparent; }*/
+    }
+    button {
+      background: #000;
+      color: #00ff66;
+      border: 2px solid #00ff66;
+      padding: 8px 16px;
+      font-family: inherit;
+    }
+    button:hover {
+      background: #00ff66;
+      color: #000;
+      cursor: pointer; /*original: without this line*/
+    }
+    a, button {
+      cursor: url(cursor2v1.png) 0 0, pointer; 
+    }
+    button:hover, a:hover {
+    cursor: url(cursor2v1.png) 0 0, pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <div id="output">Press the button to generate a compliment...<span class="cursor"></span>
+    </div>
+    <button onclick="generateCompliment()">Run Compliment.exe</button>
+  </div>
+  <div id="custom-cursor"></div>
+  <script>
+    const compliments = [
+      "You have impeccable manners.",
+      "I like your style.",
+      "You have the best laugh.",
+      "I appreciate you.",
+      "You are the most perfect you there is.",
+      "You are enough.",
+      "You're strong.",
+      "Your perspective is refreshing.",
+      "You light up the room.",
+      "Your ideas smell like fresh rain on warm asphalt.",
+      "If parallel universes exist, you’re cool in all of them.",
+      "You make silence sound like music.",
+      "Your brain must be a galaxy, because I get lost in it.",
+      "You have the aura of someone who remembers obscure constellations.",
+      "If people were colors, you’d be ultraviolet.",
+      "Your curiosity bends reality in interesting ways.",
+      "I love your enthusiasm.",
+      "I love your cooking.",
+      "You have a way with words.",
+      "You always know just what to say.",
+      "You look gorgeous.",
+      "You have good taste.",
+      "You make me want to be a better person.",
+      "You are a gift to those around you.",
+      "You are a great example to others.",
+      "You are a great listener.",
+      "You are a great friend.",
+      "You are an awesome friend.",
+      "You are awesome!",
+      "It’s so good to hear your voice.",
+      "Your smile is infectious.",
+      "You’d survive really well in a Studio Ghibli world.",
+      "Your handwriting looks like it belongs in an old explorer’s journal.",
+      "You’d probably befriend the final boss in a video game instead of fighting them.",
+      "Your playlists feel like secret maps to hidden worlds.",
+      "You look like the kind of person who finds rare items in thrift shops without even trying.",
+      "You’d be the NPC everyone remembers in an RPG.",
+      "Your thoughts sound like they’d make a great Wikipedia rabbit hole.",
+      "You have the energy of someone who’d win an argument with a goose.",
+      "Your vibe is like a glitch in the matrix, but in a good way.",
+      "You could make even a rock feel included at a party.",
+    ];
+
+    function typeWriterEffect(text, callback){
+      const output = document.getElementById('output');
+      let i = 0;
+      output.innerHTML = '';
+      function typing(){
+        if (i < text.length){
+        output.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing, 50);
+        }else{
+          output.innerHTML += '<span class="cursor"></span>';
+          if(callback) callback();
+        }
+      }
+      typing();
+    }
+
+    function generateCompliment() {
+      const randomIndex = Math.floor(Math.random() * compliments.length);
+      const compliment = compliments[randomIndex];
+      typeWriterEffect(compliment);
+    }
+
+    const cursor = document.getElementById('custom-cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+  </script>
+</body>
+</html>
